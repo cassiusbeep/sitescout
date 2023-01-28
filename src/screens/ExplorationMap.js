@@ -1,15 +1,28 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { StyleSheet, Text, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
-export default function ExplorationMap() {}
+export default function ExplorationMap() {
 
-const render = (status) => {
-    return <h1>{status}</h1>;
-  };
+  return (
+    <View>
+      <Text>Hello world!</Text>
+  <MapView
+            provider={PROVIDER_GOOGLE}
+            style={{flex:1, width: "100%", height: "100%"}}
+          />
+</View>
+  );
+}
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
   
-<View style={styles.container}>
-<Wrapper apiKey={"YOUR_API_KEY"} render={render}>
-    <YourComponent/>
-  </Wrapper>
-    </View>
 
   
