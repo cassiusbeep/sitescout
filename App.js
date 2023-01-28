@@ -13,7 +13,7 @@ export default function App() {
         <Stack.Screen
           name="Map View"
           component={ExplorationMap}
-          options={{title: 'Welcome'}}
+          options={{title: 'Welcome!'}}
         />
         {/* <Stack.Screen 
           name="Profile" 
