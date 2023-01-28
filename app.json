@@ -30,5 +30,5 @@
       "favicon": "./assets/favicon.png"
     }
   },
-  "ios.config.googleMapsApiKey": "AIzaSyAigvzs0kccVSMW94WX-Bdaf1G_kqeCinA"
+  "ACCESS_FINE_LOCATION": true
 }

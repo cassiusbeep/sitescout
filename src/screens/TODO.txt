@@ -1,0 +1,25 @@
+Frontend
+* First priority
+- markers need to be clickable
+- once clicked, brings to page with photos
+- check when the person is near the marker to allow photo uploading (use what3words)
+- initial upload (creating pin)
+	- upload photo (to cloud storage and firestore)
+	- record location
+
+
+* Second priority
+- list view
+
+
+Backend
+* First priority
+- places attributes
+	- include reference to latest image (update while uploading image)
+	- include total number of uploaded image (update while uploading image)
+	- include reference to collage image (updated daily when collage is built)
+	- include what3words coordinates
+	- include normal coordinates
+- photo attributes
+	- include comment
+	- include timestamp
