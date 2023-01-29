@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     padding: 3, 
     marginTop: 16,     
  },
-  floatingContribute: {
+  floatingCreate: {
     width: 50,  
     height: 50,   
     borderRadius: 30,                                           
