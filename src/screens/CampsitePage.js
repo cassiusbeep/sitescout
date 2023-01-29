@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import smokeMessages from "../../functions/smokeFunction";
 // import smokeMask from 'smoke-mask-01';
 
 const screenHeight = Dimensions.get('window').height
