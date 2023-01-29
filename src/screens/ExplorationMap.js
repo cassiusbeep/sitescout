@@ -2,7 +2,7 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import {StyleSheet, Button, View, SafeAreaView, Text, Alert} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
-import getUserLocation from "../../functions/locationFunctions";
+import getUserLocation, { getAllLocations } from "../../functions/locationFunctions";
 import { useEffect, useState } from "react";
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
@@ -15,9 +15,8 @@ export default function ExplorationMap({navigation}) {
 
   useEffect(() => {
     (async () => {
-      let loc = await getUserLocation();
-      setLocation(loc.coords);
-      setMarkers([loc.coords]);
+      let locations = await getAllLocations();
+      setMarkers(locations);
     })();
   }, []);
 
@@ -41,12 +40,12 @@ export default function ExplorationMap({navigation}) {
             {markers.map((val, index) => {
               return (<Marker
                       coordinate={{
-                      latitude: val.latitude,
-                      longitude: val.longitude
+                      latitude: val.lat,
+                      longitude: val.lon
                       }}
                       key={index}
                       image={sample_icon}
-                      onPress={() => navigation.navigate('CampsitePage')}
+                      onPress={() => navigation.navigate('CampsitePage', val)}
                     />); 
             })}
       </MapView>
