@@ -1,5 +1,5 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, Dimensions, Pressable, ScrollView, MaskedViewIOS} from 'react-native';
+import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, Dimensions, Pressable, ScrollView} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
 import getUserLocation from "../../functions/locationFunctions";
@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import smokeMessages from "../../functions/smokeFunction";
-// import smokeMask from 'smoke-mask-01';
+import smokeMessages from "../../functions/smokeFunction.mjs";
+import PhotoUploadPage from './PhotoUploadPage';
 
-const screenHeight = Dimensions.get('window').height
-const testMessages = ['Test message 1', 'Test message 2', 'Test message 3', 'Test message 4', 'Test message 5', 'Test message 6', ]
+const screenHeight = Dimensions.get('window').height;
+const testMessages = ['Test message 1', 'Test message 2', 'Test message 3', 'Test message 4', 'Test message 5', 'Test message 6', ];
+const smokeMessageResult = smokeMessages(testMessages);
 
 export default function CampsitePage({route, navigation}) {
   const { locationValue } = route.params;
@@ -20,9 +21,8 @@ export default function CampsitePage({route, navigation}) {
   <View style={styles.container}>
 
     <Pressable 
-      style={styles.navButton}
       onPress={() => navigation.navigate('ExplorationMap')}>
-      <Text style={styles.navButton}>Back to the map</Text>
+      <Image source={require('../../assets/button-exit-01.png')} style={{width:50, height: 50, justifyContent:'flex-end'}}/>
     </Pressable>
 
     <ScrollView horizontal={true}>
@@ -31,23 +31,19 @@ export default function CampsitePage({route, navigation}) {
 
     <ScrollView>
 
-    <MaskedViewIOS 
-      maskElement={
-        <Image source={require('../../assets/smoke-mask-01.png')} />
-      }>
-      <Text style={styles.container}>
-      smokeMessages(testMessages);
-        {/* Generated smoke messages will go here.
-        They need to have the format of Texts
-        They need to be white at the bottom of the screen and decrease in transparency based on their position on-screen. 
-        They need to be placed somewhat randomly horizontally. 
-        XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'}  */}
-      </Text>
-    </MaskedViewIOS>
+    <View style={styles.textAligned}>
+      <Text>{smokeMessageResult}</Text>
+    </View>
+
     </ScrollView>
       <View style={styles.bottom}>
         <Image source={require('../../assets/campsite-ani-2.gif')} style={styles.bottom}/>
       </View>
+
+    <Pressable
+    onPress={() => navigation.navigate('Photo Test')}>
+      <Image source={require('../../assets/button-contribute-01.png')} style={{width:50, height: 50, justifyContent:'flex-end'}}/>
+    </Pressable>
     </View>
   );
 }
@@ -59,17 +55,15 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     alignItems: 'center',
   },
-  navButton: {
-    backgroundColor: '#e34c00',
-    borderColor: 'red',
-    color: '#ffffff',
-    padding: 3, 
-    alignItems: 'center'    
-  },
   bottom: {
     marginBottom: 36,
     height: screenHeight * 0.25,
     alignItems: 'center',
     resizeMode: 'contain'
+  },
+  textAligned: {
+    flexDirection: 'row',
+    flex: 1,
+    width: Dimensions.get('window').width
   }
 });

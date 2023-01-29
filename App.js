@@ -13,10 +13,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      {/* <Stack.Screen
+      <Stack.Screen
           name="Photo Test"
           component={PhotoUploadPage}
-        /> */}
+        />
         <Stack.Screen
           name="ExplorationMap"
           component={ExplorationMap}
