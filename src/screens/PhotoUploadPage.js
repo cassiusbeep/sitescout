@@ -56,16 +56,17 @@ export default function PhotoUploadPage({route, navigation}) {
 	  }
 
 	async function getImageBlob() {
-		if (image.assets.base64 === null) {
-			return fs.readAsStringAsync(image.uri, {encoding: fs.EncodingType.Base64})
+		return fs.readAsStringAsync(image.uri, {encoding: fs.EncodingType.Base64})
 			.then(function(image_blob){
                 image_blob = "data:image/jpg;base64," + image_blob;
 				return image_blob;
 			});
-		} else {
-			image_blob = 'data:image/jpeg;base64,' + image.assets.base64;
-			return image_blob;
-		}
+		// if (image.assets.base64 === null) {
+			
+		// } else {
+		// 	image_blob = 'data:image/jpeg;base64,' + image.assets.base64;
+		// 	return image_blob;
+		// }
 	}
 
 	async function uploadPhotoAndRedirect() {
@@ -75,6 +76,7 @@ export default function PhotoUploadPage({route, navigation}) {
 		} else {
 			uploadPhoto(uploadState, image_blob, comment);
 		}
+		navigation.navigate("ExplorationMap");
 	}
 
 	return (
@@ -89,7 +91,7 @@ export default function PhotoUploadPage({route, navigation}) {
 		<View>
 			<Button title={image? "Retake photo": "Add to the collage"} onPress={componentDidMount} style={styles.takePhoto} />
 			{image &&
-				<View style={{ flex: 1, alignItems: "center", width: 400, height: 800}}>
+			<>
 					<TextInput
 						style={styles.input}
 							onChangeText={setComment}
@@ -97,7 +99,8 @@ export default function PhotoUploadPage({route, navigation}) {
 						/>
 					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300, }} />
 					<Button style={styles.submit} title="Upload" onPress={uploadPhotoAndRedirect}/>
-					</View>}
+					</>
+					}
 		</View>
 	</View>);
 }
@@ -131,6 +134,8 @@ const styles = StyleSheet.create({
 		backgroundColor: '#a34c00',
 		color: '#ffffff',
 		borderRadius: 25,
+		width: 50,
+		height: 50
 	},
 	takePhoto: {
 		width: 150,

@@ -1,14 +1,20 @@
 import { ENDPOINT, BUCKET_NAME } from "../global";
 
+const HEADERS = {
+	"content-type": "multipart/form-data",
+	"accept": "application/json"
+}
+
 export async function uploadPhoto(locationRef, file_, comment) {
 	const uri = ENDPOINT + "photo";
+	const data = new FormData();
+	data.append("locationId", locationRef);
+	data.append("file_", file_);
+	data.append("comment", comment);
 	return await fetch(uri, {
 		method: "POST",
-		body: JSON.stringify({
-			"locationId": locationRef,
-			"file_": file_,
-			"comment": comment
-		})
+		headers: HEADERS,
+		body: data
 	}).then(response => response.json())
 	.then((res) => {
 		return res;
@@ -17,14 +23,15 @@ export async function uploadPhoto(locationRef, file_, comment) {
 
 export async function uploadPin(lon, lat, file_, comment) {
 	const uri = ENDPOINT + "location";
+	const data = new FormData();
+	data.append("lon", lon);
+	data.append("lat", lat);
+	data.append("file_", file_);
+	data.append("comment", comment);
 	return await fetch(uri, {
 		method: "POST",
-		body: JSON.stringify({
-			"lon": lon.toString(),
-			"lat": lat.toString(),
-			"file_": file_,
-			"comment": comment
-		})
+		headers: HEADERS,
+		body: data
 	}).then(response => response.json())
 	.then((res) => {
 		return res;
