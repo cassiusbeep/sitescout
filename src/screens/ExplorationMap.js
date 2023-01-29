@@ -1,7 +1,9 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import {StyleSheet, Button, Pressable, View, SafeAreaView, Text, Alert} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
-import sample_icon from "../../assets/site-icon-2-01.png";
+import icon1 from "../../assets/site-icon-1-01.png";
+import icon2 from "../../assets/site-icon-2-01.png";
+import icon3 from "../../assets/site-icon-3-01.png";
 import getUserLocation, { getAllLocations } from "../../functions/locationFunctions";
 import { useEffect, useState } from "react";
 import * as React from 'react';
@@ -21,13 +23,23 @@ export default function ExplorationMap({navigation}) {
     })();
   }, []);
 
+  function getIconByNum(num) {
+    if (num > 7) {
+      return icon3;
+    } else if (num > 3) {
+      return icon2;
+    } else {
+      return icon1;
+    }
+  }
+
   return (
     <View style={styles.container}>
 
-    <Pressable 
+    {/* <Pressable 
     style={styles.navButton}
     onPress={() => navigation.navigate('CampsitePage')}>
-      <Text style={styles.navButton}>Sit by the fireside</Text></Pressable>
+      <Text style={styles.navButton}>Sit by the fireside</Text></Pressable> */}
       <MapView
         userInterfaceStyle="dark"
             style={{width: "100%", height: "100%"}}
@@ -47,7 +59,7 @@ export default function ExplorationMap({navigation}) {
                       longitude: parseFloat(val.lon)
                       }}
                       key={index}
-                      image={sample_icon}
+                      image={getIconByNum(val.num_images)}
                       onPress={() => navigation.navigate('CampsitePage', { locationValue: val })}
                     />); 
             })}
