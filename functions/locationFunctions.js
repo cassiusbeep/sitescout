@@ -1,5 +1,5 @@
 import * as Location from 'expo-location';
-import ENDPOINT from '../global';
+import {ENDPOINT} from '../global';
 
 export default async function getUserLocation() {
       

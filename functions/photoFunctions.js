@@ -1,4 +1,4 @@
-import ENDPOINT from "../global";
+import { ENDPOINT, BUCKET_NAME } from "../global";
 
 export async function uploadPhoto(locationRef, file_, comment) {
 	const uri = ENDPOINT + "photo";
@@ -16,7 +16,7 @@ export async function uploadPhoto(locationRef, file_, comment) {
 }
 
 export async function uploadPin(lon, lat, file_, comment) {
-	const uri = ENDPOINT + "location"
+	const uri = ENDPOINT + "location";
 	return await fetch(uri, {
 		method: "POST",
 		body: JSON.stringify({
@@ -29,4 +29,20 @@ export async function uploadPin(lon, lat, file_, comment) {
 	.then((res) => {
 		return res;
 	});
+}
+
+export async function getPhotoFromRef(ref) {
+	const uri = ENDPOINT + `photo?ref=${ref}`;
+	console.log(uri);
+	return fetch(uri, {
+		method: "GET"
+	}).then(response => response.json())
+	.then((res) => {
+		console.log(res);
+		return res;
+	});
+}
+
+export function filenameToUrl(fn) {
+	return `https://firebasestorage.googleapis.com/v0/b/${BUCKET_NAME}/o/${fn}?alt=media`;
 }

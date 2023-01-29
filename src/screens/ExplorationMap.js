@@ -1,5 +1,5 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import {StyleSheet, Button, Pressable, View, SafeAreaView, Text, Alert} from 'react-native';
+import {StyleSheet, Button, Pressable, View, SafeAreaView, Text, Alert, Modal, Image} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import icon1 from "../../assets/site-icon-1-01.png";
 import icon2 from "../../assets/site-icon-2-01.png";
@@ -9,19 +9,36 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { getPhotoFromRef, filenameToUrl } from "../../functions/photoFunctions";
 
 export default function ExplorationMap({navigation}) {
 
-  const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState([]);
+  const [locImages, setLocImages] = useState([]);
+  const [openedModal, setOpenedModal] = useState(-1);
+
+  //TODO: check User location in range (how often check user location?)
+  const [checkIfInRange, setCheckIfInRange] = useState(false);
 
   useEffect(() => {
     (async () => {
-      let locations = await getAllLocations();
-      console.log(locations);
-      setMarkers(locations);
+      let locations = await (async () => {
+        let locations = await getAllLocations();
+        setMarkers(locations);
+        return locations;
+      })();
+      if (locations.length > 0) {
+        let photos = await Promise.all(locations.map((loc, i) => {
+          return getPhotoFromRef(loc["latest_image"]);
+        }));
+        console.log(photos);
+        setLocImages(photos);
+      }
     })();
+    
   }, []);
+
+
 
   function getIconByNum(num) {
     if (num > 7) {
@@ -35,7 +52,42 @@ export default function ExplorationMap({navigation}) {
 
   return (
     <View style={styles.container}>
-
+{locImages.map((val, index) => {
+        return (
+          <Modal
+          key={{index}}
+          style={{position: "absolute", bottom: "0%", left: "0%"}}
+        animationType="fade"
+        transparent={true}
+        visible={openedModal == index}
+        onDismiss={() => {
+          setOpenedModal(-1);
+        }}
+        onRequestClose={() => {
+          setOpenedModal(-1);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+          <Image source={{uri: filenameToUrl(val.photoRef) }} style={{width: "100%", height: "80%", marginBottom: "5%"}}/>
+          {checkIfInRange? <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => navigation.navigate('CampsitePage', { locationValue: markers[index] })}>
+              <Text style={styles.textStyle}>Join</Text>
+            </Pressable>: null}
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setOpenedModal(-1)}>
+              <Text style={styles.textStyle}>Close</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+        )
+      })}
+    {/* <Pressable 
+    style={styles.navButton}
+    onPress={() => navigation.navigate('CampsitePage')}>
+      <Text style={styles.navButton}>Sit by the fireside</Text></Pressable> */}
       <MapView
         userInterfaceStyle="dark"
             style={{width: "100%", height: "100%"}}
@@ -46,6 +98,7 @@ export default function ExplorationMap({navigation}) {
               longitudeDelta: 0.0421,
               }}
           >
+      
             {markers.map((val, index) => {
               console.log(index);
               console.log(val);
@@ -56,7 +109,8 @@ export default function ExplorationMap({navigation}) {
                       }}
                       key={index}
                       image={getIconByNum(val.num_images)}
-                      onPress={() => navigation.navigate('CampsitePage', { locationValue: val })}
+                      onPress={() => setOpenedModal(index)}
+                      // onPress={() => navigation.navigate('CampsitePage', { locationValue: val })}
                     />); 
             })}
       </MapView>
@@ -89,7 +143,51 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     bottom: 10,
     right: -175,
-  }
+  },
+ centeredView: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 22,
+},
+modalView: {
+  overflow: "hidden",
+  width: "50%",
+  height: "27%",
+  backgroundColor: '#3A1600',
+  borderRadius: 20,
+  padding: 35,
+  alignItems: 'center',
+  shadowColor: '#000',
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.25,
+  shadowRadius: 4,
+  elevation: 5,
+},
+button: {
+  borderRadius: 20,
+  padding: 10,
+  elevation: 2,
+  margin: 5
+},
+buttonOpen: {
+  backgroundColor: '#F194FF',
+},
+buttonClose: {
+  backgroundColor: '#E34C00',
+},
+textStyle: {
+  color: 'white',
+  fontWeight: 'bold',
+  textAlign: 'center',
+},
+modalText: {
+  marginBottom: 15,
+  textAlign: 'center',
+},
 });
   
 
