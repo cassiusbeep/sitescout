@@ -97,10 +97,13 @@ export default function PhotoUploadPage({route, navigation}) {
 							onChangeText={setComment}
 							value={comment}
 						/>
-					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300, }} />
-					<Button style={styles.submit} title="Upload" onPress={uploadPhotoAndRedirect}/>
-					</>
-					}
+					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300}} />
+					{/* <Button style={styles.submit} title="Upload" onPress={uploadPhotoAndRedirect}/> */}
+					</>}
+			<Pressable 
+				onPress={uploadPhotoAndRedirect}>
+				<Image source={require('../../assets/button-upload-01.png')} style={styles.floatingUpload}/>
+			</Pressable>
 		</View>
 	</View>);
 }
@@ -126,6 +129,14 @@ const styles = StyleSheet.create({
 		position: 'absolute',                                          
 		top: 10,                                                    
 		right: 10, 
+	},
+	floatingUpload: {
+		width: 50,  
+		height: 50,   
+		borderRadius: 30,                                           
+		position: 'absolute',                                          
+		bottom: 10, 
+		right: 10,
 	},
  	topBar: {
 	paddingBottom: 0,
