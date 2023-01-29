@@ -12,16 +12,16 @@ export default function PhotoUploadPage({route, navigation}) {
 	const [image, setImage] = React.useState(null);
 	const [comment, setComment] = React.useState("");
 
-	// const { uploadState } = route.params;
+	const { uploadState } = route.params;
 
-	// useEffect(() => {
-	// 	if (uploadState === "NEW"){
-	// 		(async () => {
-	// 			let loc = await getUserLocation();
-	// 			setLocation(loc);
-	// 		  })();
-	// 	}
-	//   }, []);
+	useEffect(() => {
+		if (uploadState === "NEW"){
+			(async () => {
+				let loc = await getUserLocation();
+				setLocation(loc);
+			  })();
+		}
+	  }, []);
  
 	async function componentDidMount() {
 		const permission = await Permissions.getAsync(Permissions.CAMERA);
@@ -87,9 +87,9 @@ export default function PhotoUploadPage({route, navigation}) {
 			</Pressable>
 		</View>
 		<View>
-			<Button title={image? "Retake photo": "Add to the collage"} onPress={componentDidMount} style={styles.takePhoto}>
+			<Button title={image? "Retake photo": "Add to the collage"} onPress={componentDidMount} style={styles.takePhoto} />
 			{image &&
-				<View style={{ flex: 1, alignItems: "center", width: 400}}>
+				<View style={{ flex: 1, alignItems: "center", width: 400, height: 800}}>
 					<TextInput
 						style={styles.input}
 							onChangeText={setComment}

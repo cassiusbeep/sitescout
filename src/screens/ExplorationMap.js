@@ -28,10 +28,10 @@ export default function ExplorationMap({navigation}) {
         return locations;
       })();
       if (locations.length > 0) {
+        console.log(locations);
         let photos = await Promise.all(locations.map((loc, i) => {
           return getPhotoFromRef(loc["latest_image"]);
         }));
-        console.log(photos);
         setLocImages(photos);
       }
     })();
@@ -39,14 +39,21 @@ export default function ExplorationMap({navigation}) {
 
   function locationVerify(lon1, lat1, lon2, lat2) {
     meterToCoord = 1 / 111000.
-    lat_cond = (lat2 - 10 * meterToCoord <= lat1) & (lat2 + 10 * meterToCoord <= lat1)
-    lon_cond = (lon2 - 10 * meterToCoord <= lon1) & (lon2 + 10 * meterToCoord <= lon1)
-    return lat_cond & lon_cond
+    console.log(lon1);
+    console.log(lat1);
+    console.log(lon2);
+    console.log(lat2);
+    lat_cond = (lat2 - 10 * meterToCoord <= lat1) && (lat2 + 10 * meterToCoord >= lat1)
+    lon_cond = (lon2 - 10 * meterToCoord <= lon1) && (lon2 + 10 * meterToCoord >= lon1)
+    return lat_cond && lon_cond
   }
 
   async function checkIfInRange(loc) {
+    console.log(loc);
     let user = await getUserLocation();
-    setInRange(locationVerify(loc.lon, loc.lat, user.coords.longitude, user.coords.latitude));
+    let verification = locationVerify(parseFloat(loc.lon), parseFloat(loc.lat), user.coords.longitude, user.coords.latitude);
+    console.log(verification);
+    setInRange(verification);
   }
 
   function getIconByNum(num) {
@@ -82,7 +89,10 @@ export default function ExplorationMap({navigation}) {
           <Image source={{uri: val.public_url }} style={{width: "100%", height: "80%", marginBottom: "5%"}}/>
           {inRange? <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => navigation.navigate('CampsitePage', { locationValue: markers[index] })}>
+              onPress={() => {
+                setOpenedModal(-1);
+                setInRange(false);
+                navigation.navigate('CampsitePage', { locationValue: markers[index] });}}>
               <Text style={styles.textStyle}>Join</Text>
             </Pressable>: null}
             <Pressable
@@ -110,8 +120,6 @@ export default function ExplorationMap({navigation}) {
           >
       
             {markers.map((val, index) => {
-              console.log(index);
-              console.log(val);
               return (<Marker
                       coordinate={{
                       latitude: parseFloat(val.lat),
@@ -127,8 +135,8 @@ export default function ExplorationMap({navigation}) {
             })}
       </MapView>
       <Pressable
-        onPress={() => navigation.navigate('Photo Test')}>
-        <Image source={require('../../assets/button-create-01.png')} style={styles.floatingCreate}/>
+        onPress={() => navigation.navigate('Photo Test', {uploadState: "NEW"})}>
+        <Image source={require('../../assets/button-contribute-01.png')} style={styles.floatingCreate}/>
       </Pressable>
 </View>
   );
