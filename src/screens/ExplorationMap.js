@@ -16,6 +16,7 @@ export default function ExplorationMap({navigation}) {
   useEffect(() => {
     (async () => {
       let locations = await getAllLocations();
+      console.log(locations);
       setMarkers(locations);
     })();
   }, []);
@@ -38,10 +39,12 @@ export default function ExplorationMap({navigation}) {
               }}
           >
             {markers.map((val, index) => {
+              console.log(index);
+              console.log(val);
               return (<Marker
                       coordinate={{
-                      latitude: val.lat,
-                      longitude: val.lon
+                      latitude: parseFloat(val.lat),
+                      longitude: parseFloat(val.lon)
                       }}
                       key={index}
                       image={sample_icon}

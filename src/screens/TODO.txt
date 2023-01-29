@@ -1,7 +1,7 @@
 Frontend
 * First priority
-- markers need to be clickable
-- once clicked, brings to page with photos
+- DONE:  markers need to be clickable
+- DONE: once clicked, brings to page with photos
 - check when the person is near the marker to allow photo uploading (use what3words)
 - initial upload (creating pin)
 	- upload photo (to cloud storage and firestore)

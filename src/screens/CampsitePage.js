@@ -1,5 +1,5 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import {StyleSheet, Button, View, SafeAreaView, Text, Alert} from 'react-native';
+import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
 import getUserLocation from "../../functions/locationFunctions";
@@ -21,6 +21,7 @@ export default function CampsitePage({navigation}) {
     <Text style={styles.textBox}>
       Hello world!
     </Text>
+
     </View>
   );
 }
