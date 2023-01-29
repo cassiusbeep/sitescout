@@ -11,6 +11,7 @@ import smokeMessages from "../../functions/smokeFunction";
 // import smokeMask from 'smoke-mask-01';
 
 const screenHeight = Dimensions.get('window').height
+const testMessages = ['Test message 1', 'Test message 2', 'Test message 3', 'Test message 4', 'Test message 5', 'Test message 6', ]
 
 export default function CampsitePage({route, navigation}) {
   const { locationValue } = route.params;
@@ -35,11 +36,12 @@ export default function CampsitePage({route, navigation}) {
         <Image source={require('../../assets/smoke-mask-01.png')} />
       }>
       <Text style={styles.container}>
-        Generated smoke messages will go here.
+      smokeMessages(testMessages);
+        {/* Generated smoke messages will go here.
         They need to have the format of Texts
         They need to be white at the bottom of the screen and decrease in transparency based on their position on-screen. 
         They need to be placed somewhat randomly horizontally. 
-        XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} 
+        XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'} XXXXX {'\n'}  */}
       </Text>
     </MaskedViewIOS>
     </ScrollView>
