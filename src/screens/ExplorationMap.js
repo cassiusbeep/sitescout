@@ -36,10 +36,6 @@ export default function ExplorationMap({navigation}) {
   return (
     <View style={styles.container}>
 
-    {/* <Pressable 
-    style={styles.navButton}
-    onPress={() => navigation.navigate('CampsitePage')}>
-      <Text style={styles.navButton}>Sit by the fireside</Text></Pressable> */}
       <MapView
         userInterfaceStyle="dark"
             style={{width: "100%", height: "100%"}}
@@ -64,6 +60,10 @@ export default function ExplorationMap({navigation}) {
                     />); 
             })}
       </MapView>
+      <Pressable
+        onPress={() => navigation.navigate('Photo Test')}>
+        <Image source={require('../../assets/button-create-01.png')} style={styles.floatingCreate}/>
+      </Pressable>
 </View>
   );
 }
@@ -81,7 +81,15 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     padding: 3, 
     marginTop: 16,     
- }
+ },
+  floatingContribute: {
+    width: 50,  
+    height: 50,   
+    borderRadius: 30,                                           
+    position: 'absolute', 
+    bottom: 10,
+    right: -175,
+  }
 });
   
 

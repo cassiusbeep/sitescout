@@ -10,9 +10,15 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import smokeMessages from "../../functions/smokeFunction.mjs";
 import PhotoUploadPage from './PhotoUploadPage';
 
+/*TODO :: take in data from server. 
+          use collage image instead of placeholder-01.png. 
+          populate listMessages with (REVERSED) array of comments (so newest are first).
+           
+*/
+
 const screenHeight = Dimensions.get('window').height;
-const testMessages = ['Test message 1', 'Test message 2', 'Test message 3', 'Test message 4', 'Test message 5', 'Test message 6', ];
-const smokeMessageResult = smokeMessages(testMessages);
+const listMessages = ['Test message 1', 'Test message 2', 'Test message 3', 'Test message 4', 'Test message 5', 'Test message 6', ];
+const smokeMessageResult = smokeMessages(listMessages);
 
 export default function CampsitePage({route, navigation}) {
   const { locationValue } = route.params;
