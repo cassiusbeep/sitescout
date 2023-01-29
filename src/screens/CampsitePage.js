@@ -12,7 +12,9 @@ import smokeMessages from "../../functions/smokeFunction";
 
 const screenHeight = Dimensions.get('window').height
 
-export default function CampsitePage({navigation}) {
+export default function CampsitePage({route, navigation}) {
+  const { locationValue } = route.params;
+
   return (
   <View style={styles.container}>
 

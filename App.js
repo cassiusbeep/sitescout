@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ExplorationMap from './src/screens/ExplorationMap';
 import CampsitePage from './src/screens/CampsitePage';
 import testLocation from './src/screens/testLocation';
+import PhotoUploadPage from './src/screens/PhotoUploadPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,10 +13,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      {/* <Stack.Screen
-          name="Location Test"
-          component={testLocation}
-        /> */}
+      <Stack.Screen
+          name="Photo Test"
+          component={PhotoUploadPage}
+        />
         <Stack.Screen
           name="ExplorationMap"
           component={ExplorationMap}

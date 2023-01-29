@@ -1,4 +1,5 @@
 import * as Location from 'expo-location';
+import ENDPOINT from '../global';
 
 export default async function getUserLocation() {
       
@@ -6,14 +7,13 @@ export default async function getUserLocation() {
 	if (status !== 'granted') {
 		return "Error";
 	}
-
 	let location = await Location.getCurrentPositionAsync({});
 
 	return location;
 }
 
 export async function getAllLocations() {
-	const endpoint = "http://139.144.57.146:8000/allLocation";
+	const endpoint = ENDPOINT + "allLocation";
 	return await fetch(endpoint, {
 		method: "GET"
 	}).then(response => response.json())
