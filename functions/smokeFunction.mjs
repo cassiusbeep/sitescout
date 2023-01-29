@@ -6,11 +6,11 @@ export default function smokeMessages(messages) {
 	messages.map((message, index) => {
 		let position = index / messages.length;
 		let smokeColor = 'rgba(255,255,255,' + (position + 0.1) + ')'
-		//make the text pushed left and right of center to look like a conversation
-		// let pad = (index % 2 == 0 ? '' : 'justifyContent:flex-start')
+		//TODO :: animate text to hover left and right
+		// 
 		
 		result.push(
-			<Text style={{color:smokeColor, justifyContent:'center'}}> {'\n'} {message} {'\n'} </Text>
+			<Text style={{color:smokeColor, justifyContent:'center', textAlign:'center', fontStyle:'italic'}}> {'\n'} {message} {'\n'} </Text>
 		);
 
 		console.log(result)

@@ -49,7 +49,7 @@ export default function CampsitePage({route, navigation}) {
   return (
   <View style={styles.container}>
       {collage?
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true} minimumZoomScale={1} maximumZoomScale={5}>
       <Image source={{uri: collage.public_url}} style={{height:screenHeight * 0.45, width: collage.width? collage.width: screenHeight * .45}}/>
     </ScrollView>:null
       }
@@ -87,9 +87,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   textAligned: {
-    flexDirection: 'row',
-    flex: 1,
-    width: Dimensions.get('window').width
+    // flex: 1,
+    width: Dimensions.get('window').width,
   },
   floatingExit: {
     width: 50,  

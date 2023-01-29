@@ -117,10 +117,9 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		flex: 1,
-		backgroundColor: '#fff',
+		backgroundColor: '#3a1600',
 		alignItems: 'center',
 		justifyContent: 'center',
-		height: 1000
 	},
   	floatingExit: {
 		width: 50,  
