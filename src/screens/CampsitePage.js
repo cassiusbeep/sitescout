@@ -12,11 +12,15 @@ export default function CampsitePage({navigation}) {
   return (
   <View style={styles.container}>
     <Button
+    style={styles.navbutton}
       title="Back to Map"
-      onPress={() =>
-        navigation.navigate('ExplorationMap')
-      }
+      onPress={() => navigation.navigate('ExplorationMap')}
+      color='#e34c00'
     />
+    <Image source={require('../../assets/placeholder-01.png')} />
+    <Text style={styles.textBox}>
+      Hello world!
+    </Text>
     </View>
   );
 }
@@ -25,14 +29,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#3a1600',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5
+    color: '#ffffff'
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#3a1600',
+    color: '#ffffff'
   },
   textBox: {
-    flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'left',
+    alignItems: 'flex-start',
     color: '#3a1600',
+    borderRadius: 4,
   }
 });
