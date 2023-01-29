@@ -42,7 +42,3 @@ export async function getPhotoFromRef(ref) {
 		return res;
 	});
 }
-
-export function filenameToUrl(fn) {
-	return `https://firebasestorage.googleapis.com/v0/b/${BUCKET_NAME}/o/${fn}?alt=media`;
-}
