@@ -1,6 +1,7 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import {StyleSheet, Button, Pressable, View, SafeAreaView, Text, Alert, Modal, Image} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
+import icon0 from "../../assets/site-icon-0-01.png";
 import icon1 from "../../assets/site-icon-1-01.png";
 import icon2 from "../../assets/site-icon-2-01.png";
 import icon3 from "../../assets/site-icon-3-01.png";
@@ -61,8 +62,10 @@ export default function ExplorationMap({navigation}) {
       return icon3;
     } else if (num > 3) {
       return icon2;
-    } else {
+    } else if (num > 1) {
       return icon1;
+    } else {
+      return icon0;
     }
   }
 

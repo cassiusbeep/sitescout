@@ -1,5 +1,5 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, Dimensions, Pressable, ScrollView} from 'react-native';
+import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, Dimensions, Pressable, ScrollView, Animated} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
 import getUserLocation, { getAllPhotos } from "../../functions/locationFunctions";
@@ -7,15 +7,9 @@ import { useEffect, useState } from "react";
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import smokeMessages from "../../functions/smokeFunction.mjs";
+import SmokeMessages from "../../functions/smokeFunction.mjs";
 import PhotoUploadPage from './PhotoUploadPage';
 import { getCollageFromRef } from "../../functions/photoFunctions";
-
-/*TODO :: take in data from server. 
-          use collage image instead of placeholder-01.png. 
-          populate listMessages with (REVERSED) array of comments (so newest are first).
-           
-*/
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -33,7 +27,7 @@ export default function CampsitePage({route, navigation}) {
       })();
       if (msgs.length > 0) {
         console.log(msgs);
-        let smokeMsgs = smokeMessages(msgs.map((val, index) => {
+        let smokeMsgs = SmokeMessages(msgs.map((val, index) => {
           return val.comment
         }));
         setSmokeMessageResult(smokeMsgs);
@@ -50,13 +44,11 @@ export default function CampsitePage({route, navigation}) {
   <View style={styles.container}>
       {collage?
       <ScrollView horizontal={true} minimumZoomScale={1} maximumZoomScale={5}>
-      <Image source={{uri: collage.public_url}} style={{height:screenHeight * 0.45, width: collage.width? collage.width: screenHeight * .45}}/>
+      <Image source={{uri: collage.public_url}} style={{height:screenHeight * 0.3, width: collage.width? collage.width: screenHeight * .45}}/>
     </ScrollView>:null
       }
       <ScrollView>
-        <View style={styles.textAligned}>
           <Text>{smokeMessageResult}</Text>
-        </View>
       </ScrollView>
 
       <View style={styles.bottom}>
@@ -66,9 +58,6 @@ export default function CampsitePage({route, navigation}) {
         <Image source={require('../../assets/button-contribute-01.png')} style={styles.floatingContribute}/>
       </Pressable>
       </View>
-
-      
-
     </View>
   );
 }
@@ -106,4 +95,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: -175,
   },
+  smoking: {
+    springConfig: {stiffness: 340, damping: 30}
+  }
 });
