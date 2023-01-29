@@ -18,7 +18,7 @@ export default function ExplorationMap({navigation}) {
   const [openedModal, setOpenedModal] = useState(-1);
 
   //TODO: check User location in range (how often check user location?)
-  const [checkIfInRange, setCheckIfInRange] = useState(false);
+  const [inRange, setInRange] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -35,10 +35,19 @@ export default function ExplorationMap({navigation}) {
         setLocImages(photos);
       }
     })();
-    
   }, []);
 
+  function locationVerify(lon1, lat1, lon2, lat2) {
+    meterToCoord = 1 / 111000.
+    lat_cond = (lat2 - 10 * meterToCoord <= lat1) & (lat2 + 10 * meterToCoord <= lat1)
+    lon_cond = (lon2 - 10 * meterToCoord <= lon1) & (lon2 + 10 * meterToCoord <= lon1)
+    return lat_cond & lon_cond
+  }
 
+  async function checkIfInRange(loc) {
+    let user = await getUserLocation();
+    setInRange(locationVerify(loc.lon, loc.lat, user.coords.longitude, user.coords.latitude));
+  }
 
   function getIconByNum(num) {
     if (num > 7) {
@@ -62,21 +71,26 @@ export default function ExplorationMap({navigation}) {
         visible={openedModal == index}
         onDismiss={() => {
           setOpenedModal(-1);
+          setInRange(false);
         }}
         onRequestClose={() => {
           setOpenedModal(-1);
+          setInRange(false);
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-          <Image source={{uri: filenameToUrl(val.photoRef) }} style={{width: "100%", height: "80%", marginBottom: "5%"}}/>
-          {checkIfInRange? <Pressable
+          <Image source={{uri: val.public_url }} style={{width: "100%", height: "80%", marginBottom: "5%"}}/>
+          {inRange? <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => navigation.navigate('CampsitePage', { locationValue: markers[index] })}>
               <Text style={styles.textStyle}>Join</Text>
             </Pressable>: null}
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => setOpenedModal(-1)}>
+              onPress={() => {
+                setOpenedModal(-1);
+                setInRange(false);
+              }}>
               <Text style={styles.textStyle}>Close</Text>
             </Pressable>
           </View>
@@ -84,10 +98,6 @@ export default function ExplorationMap({navigation}) {
       </Modal>
         )
       })}
-    {/* <Pressable 
-    style={styles.navButton}
-    onPress={() => navigation.navigate('CampsitePage')}>
-      <Text style={styles.navButton}>Sit by the fireside</Text></Pressable> */}
       <MapView
         userInterfaceStyle="dark"
             style={{width: "100%", height: "100%"}}
@@ -109,7 +119,9 @@ export default function ExplorationMap({navigation}) {
                       }}
                       key={index}
                       image={getIconByNum(val.num_images)}
-                      onPress={() => setOpenedModal(index)}
+                      onPress={async () => {
+                        await checkIfInRange(val);
+                        setOpenedModal(index);}}
                       // onPress={() => navigation.navigate('CampsitePage', { locationValue: val })}
                     />); 
             })}
