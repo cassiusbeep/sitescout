@@ -16,12 +16,29 @@ import PhotoUploadPage from './PhotoUploadPage';
            
 */
 
-const screenHeight = Dimensions.get('window').height;
-const listMessages = ['Test message 1', 'Test message 2', 'Test message 3', 'Test message 4', 'Test message 5', 'Test message 6', ];
-const smokeMessageResult = smokeMessages(listMessages);
-
 export default function CampsitePage({route, navigation}) {
   const { locationValue } = route.params;
+
+  const screenHeight = Dimensions.get('window').height;
+  const [listMessages, setListMessages] = useState([]);
+  const [smokeMessageResult, setSmokeMessageResult] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      let msgs = await (async () => {
+        let msgs = await getAllPhotos(locationValue._id);
+        setListMessages(msgs);
+        return msgs;
+      })();
+      if (msgs.length > 0) {
+        console.log(msgs);
+        let smokeMsgs = smokeMessages(msgs.map((val, index) => {
+          return val.comment
+        }));
+        setSmokeMessageResult(smokeMsgs);
+      }
+    })();
+  }, []);
 
   return (
   <View style={styles.container}>

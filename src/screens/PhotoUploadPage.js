@@ -76,7 +76,7 @@ export default function PhotoUploadPage({route, navigation}) {
 		} else {
 			uploadPhoto(uploadState, image_blob, comment);
 		}
-		navigation.navigate("ExplorationMap");
+		navigation.push("ExplorationMap");
 	}
 
 	return (
@@ -98,12 +98,12 @@ export default function PhotoUploadPage({route, navigation}) {
 							value={comment}
 						/>
 					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300}} />
-					{/* <Button style={styles.submit} title="Upload" onPress={uploadPhotoAndRedirect}/> */}
+						<Pressable 
+					onPress={uploadPhotoAndRedirect}>
+					<Image source={require('../../assets/button-upload-01.png')} style={styles.floatingUpload}/>
+				</Pressable>
 					</>}
-			<Pressable 
-				onPress={uploadPhotoAndRedirect}>
-				<Image source={require('../../assets/button-upload-01.png')} style={styles.floatingUpload}/>
-			</Pressable>
+			
 		</View>
 	</View>);
 }

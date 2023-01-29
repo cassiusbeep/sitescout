@@ -66,6 +66,23 @@ export default function ExplorationMap({navigation}) {
     }
   }
 
+  async function refreshAll() {
+    (async () => {
+      let locations = await (async () => {
+        let locations = await getAllLocations();
+        setMarkers(locations);
+        return locations;
+      })();
+      if (locations.length > 0) {
+        console.log(locations);
+        let photos = await Promise.all(locations.map((loc, i) => {
+          return getPhotoFromRef(loc["latest_image"]);
+        }));
+        setLocImages(photos);
+      }
+    })();
+  }
+
   return (
     <View style={styles.container}>
 {locImages.map((val, index) => {
@@ -87,13 +104,14 @@ export default function ExplorationMap({navigation}) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
           <Image source={{uri: val.public_url }} style={{width: "100%", height: "80%", marginBottom: "5%"}}/>
+          <View style={{flexDirection: 'row'}}>
           {inRange? <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => {
                 setOpenedModal(-1);
                 setInRange(false);
                 navigation.navigate('CampsitePage', { locationValue: markers[index] });}}>
-              <Text style={styles.textStyle}>Join</Text>
+              <Text style={styles.textStyle}>Join   </Text>
             </Pressable>: null}
             <Pressable
               style={[styles.button, styles.buttonClose]}
@@ -103,6 +121,7 @@ export default function ExplorationMap({navigation}) {
               }}>
               <Text style={styles.textStyle}>Close</Text>
             </Pressable>
+            </View>
           </View>
         </View>
       </Modal>
@@ -138,6 +157,10 @@ export default function ExplorationMap({navigation}) {
         onPress={() => navigation.navigate('Photo Test', {uploadState: "NEW"})}>
         <Image source={require('../../assets/button-contribute-01.png')} style={styles.floatingCreate}/>
       </Pressable>
+      <Pressable
+        onPress={refreshAll}>
+        <Image source={require('../../assets/button-refresh-1.png')} style={styles.floatingRefresh}/>
+      </Pressable>
 </View>
   );
 }
@@ -163,6 +186,14 @@ const styles = StyleSheet.create({
     position: 'absolute', 
     bottom: 10,
     right: -175,
+  },
+  floatingRefresh: {
+    width: 50,  
+    height: 50,   
+    borderRadius: 30,                                           
+    position: 'absolute', 
+    bottom: 10,
+    left: -175,
   },
  centeredView: {
   flex: 1,

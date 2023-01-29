@@ -21,3 +21,13 @@ export async function getAllLocations() {
 		return res;
 	});
 }
+
+export async function getAllPhotos(locationId) {
+	const endpoint = ENDPOINT + `photos?locationId=${locationId}`
+	return await fetch(endpoint, {
+		method: "GET"
+	}).then(response => response.json())
+	.then((res) => {
+		return res;
+	});
+}
