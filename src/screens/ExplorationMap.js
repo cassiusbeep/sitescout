@@ -158,7 +158,7 @@ export default function ExplorationMap({navigation}) {
       </MapView>
       <Pressable
         onPress={() => navigation.navigate('Photo Test', {uploadState: "NEW"})}>
-        <Image source={require('../../assets/button-create-01.png')} style={styles.floatingCreate}/>
+        <Image source={require('../../assets/button-createpin-01.png')} style={styles.floatingCreate}/>
       </Pressable>
       <Pressable
         onPress={refreshAll}>
