@@ -48,7 +48,7 @@ export default function ExplorationMap({navigation}) {
                       }}
                       key={index}
                       image={sample_icon}
-                      onPress={() => navigation.navigate('CampsitePage', { locationId: val })}
+                      onPress={() => navigation.navigate('CampsitePage', { locationValue: val })}
                     />); 
             })}
       </MapView>
