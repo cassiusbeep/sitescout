@@ -1,11 +1,14 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Button, View, SafeAreaView, Text, Alert} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
 import getUserLocation from "../../functions/locationFunctions";
 import { useEffect, useState } from "react";
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-export default function ExplorationMap() {
+export default function ExplorationMap({navigation}) {
 
   const [location, setLocation] = useState(null);
   const [markers, setMarkers] = useState([]);
@@ -20,6 +23,11 @@ export default function ExplorationMap() {
 
   return (
     <View style={styles.container}>
+      <Button
+      title="Sit around the fire"
+      onPress={() => navigation.navigate('CampsitePage')}
+      color='#e34c00'
+    />
       <MapView
         userInterfaceStyle="dark"
             style={{width: "100%", height: "100%"}}
@@ -38,6 +46,7 @@ export default function ExplorationMap() {
                       }}
                       key={index}
                       image={sample_icon}
+                      onSelect={() => navigation.navigate('CampsitePage')}
                     />); 
             })}
       </MapView>

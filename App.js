@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ExplorationMap from './src/screens/ExplorationMap';
+import CampsitePage from './src/screens/CampsitePage';
 import testLocation from './src/screens/testLocation';
 
 const Stack = createNativeStackNavigator();
@@ -16,12 +17,12 @@ export default function App() {
           component={testLocation}
         /> */}
         <Stack.Screen
-          name="Map View"
+          name="ExplorationMap"
           component={ExplorationMap}
         />
-        {/* <Stack.Screen 
-          name="Profile" 
-          component={ProfileScreen} /> */}
+        <Stack.Screen 
+          name="CampsitePage" 
+          component={CampsitePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
