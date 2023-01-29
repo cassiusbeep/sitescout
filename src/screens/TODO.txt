@@ -3,7 +3,7 @@ Frontend
 - DONE: markers need to be clickable
 - DONE: once clicked, brings to page with photos
 - DONE (NEED TO IMPLEMENT CHECK AND SET FREQUENCY): check when the person is near the marker to allow photo uploading (use what3words)
-- initial upload (creating pin)
+- DONE: initial upload (creating pin)
 	- upload photo (to cloud storage and firestore)
 	- record location
 

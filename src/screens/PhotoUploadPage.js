@@ -95,7 +95,7 @@ export default function PhotoUploadPage({route, navigation}) {
 							onChangeText={setComment}
 							value={comment}
 						/>
-					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300, }} />
+					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300}} />
 					<Button style={styles.submit} title="Upload" onPress={uploadPhotoAndRedirect}/>
 					</View>}
 		</View>
