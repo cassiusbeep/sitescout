@@ -20,30 +20,26 @@ export default function CampsitePage({route, navigation}) {
   return (
   <View style={styles.container}>
 
-    <Pressable 
-      onPress={() => navigation.navigate('ExplorationMap')}>
-      <Image source={require('../../assets/button-exit-01.png')} style={{width:50, height: 50, justifyContent:'flex-end'}}/>
-    </Pressable>
+      <ScrollView horizontal={true}>
+        <Image source={require('../../assets/placeholder-01.png')} style={{height:screenHeight * 0.45}}/>
+      </ScrollView>
 
-    <ScrollView horizontal={true}>
-      <Image source={require('../../assets/placeholder-01.png')} style={{height:screenHeight * 0.45}}/>
-    </ScrollView>
+      <ScrollView>
+        <View style={styles.textAligned}>
+          <Text>{smokeMessageResult}</Text>
+        </View>
+      </ScrollView>
 
-    <ScrollView>
-
-    <View style={styles.textAligned}>
-      <Text>{smokeMessageResult}</Text>
-    </View>
-
-    </ScrollView>
       <View style={styles.bottom}>
         <Image source={require('../../assets/campsite-ani-2.gif')} style={styles.bottom}/>
+        <Pressable
+        onPress={() => navigation.navigate('Photo Test')}>
+        <Image source={require('../../assets/button-contribute-01.png')} style={styles.floatingContribute}/>
+      </Pressable>
       </View>
 
-    <Pressable
-    onPress={() => navigation.navigate('Photo Test')}>
-      <Image source={require('../../assets/button-contribute-01.png')} style={{width:50, height: 50, justifyContent:'flex-end'}}/>
-    </Pressable>
+      
+
     </View>
   );
 }
@@ -65,5 +61,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     width: Dimensions.get('window').width
-  }
+  },
+  floatingExit: {
+    width: 50,  
+    height: 50,   
+    borderRadius: 30,                                           
+    position: 'absolute',                                          
+    top: 10,                                                    
+    right: 10, 
+  },
+  floatingContribute: {
+    width: 50,  
+    height: 50,   
+    borderRadius: 30,                                           
+    position: 'absolute', 
+    bottom: 10,
+    right: -175,
+  },
 });

@@ -1,4 +1,4 @@
-import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TextInput} from 'react-native';
+import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, TextInput, Pressable} from 'react-native';
 import { useEffect, useState } from "react";
 import * as React from 'react';
 import * as ImagePicker from 'expo-image-picker';
@@ -12,16 +12,16 @@ export default function PhotoUploadPage({route, navigation}) {
 	const [image, setImage] = React.useState(null);
 	const [comment, setComment] = React.useState("");
 
-	const { uploadState } = route.params;
+	// const { uploadState } = route.params;
 
-	useEffect(() => {
-		if (uploadState === "NEW"){
-			(async () => {
-				let loc = await getUserLocation();
-				setLocation(loc);
-			  })();
-		}
-	  }, []);
+	// useEffect(() => {
+	// 	if (uploadState === "NEW"){
+	// 		(async () => {
+	// 			let loc = await getUserLocation();
+	// 			setLocation(loc);
+	// 		  })();
+	// 	}
+	//   }, []);
  
 	async function componentDidMount() {
 		const permission = await Permissions.getAsync(Permissions.CAMERA);
@@ -78,35 +78,63 @@ export default function PhotoUploadPage({route, navigation}) {
 	}
 
 	return (
-	<View style={styles.container}>
-		<Button title={image? "Retake photo": "Add to the collage"} onPress={componentDidMount} />
-		{image &&
-			<View style={{ flex: 1, alignItems: "center", width: "100%"}}>
-				<TextInput
-					style={styles.input}
-						onChangeText={setComment}
-						value={comment}
-					/>
-				<Image source={{ uri: image.uri }} style={{ width: "100%", height: "70%", }} />
-				<Button title="Upload" onPress={uploadPhotoAndRedirect}/>
-				</View>}
+
+	<View>
+		<View style={styles.topBar}>
+			<Pressable 
+				onPress={() => navigation.goBack()}>
+				<Image source={require('../../assets/button-exit-01.png')} style={styles.floatingExit}/>
+			</Pressable>
+		</View>
+		<View>
+			<Button title={image? "Retake photo": "Add to the collage"} onPress={componentDidMount} style={styles.takePhoto}>
+			{image &&
+				<View style={{ flex: 1, alignItems: "center", width: 400}}>
+					<TextInput
+						style={styles.input}
+							onChangeText={setComment}
+							value={comment}
+						/>
+					<Image source={{ uri: image.uri }} style={{ width: 400, height: 300, }} />
+					<Button style={styles.submit} title="Upload" onPress={uploadPhotoAndRedirect}/>
+					</View>}
+		</View>
 	</View>);
 }
 
 const styles = StyleSheet.create({
 	input: {
-		height: 100,
+		height: 50,
 		margin: 12,
 		borderWidth: 1,
 		padding: 10,
-	  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-	height: 1000
-  },
+	},
+	container: {
+		flex: 1,
+		backgroundColor: '#fff',
+		alignItems: 'center',
+		justifyContent: 'center',
+		height: 1000
+	},
+  	floatingExit: {
+		width: 50,  
+		height: 50,   
+		borderRadius: 30,                                           
+		position: 'absolute',                                          
+		top: 10,                                                    
+		right: 10, 
+	},
+ 	topBar: {
+	paddingBottom: 0,
+	},
+	submit: {
+		backgroundColor: '#a34c00',
+		color: '#ffffff',
+		borderRadius: 25,
+	},
+	takePhoto: {
+		width: 150,
+	}
 });
   
 

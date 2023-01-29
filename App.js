@@ -13,10 +13,6 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen
-          name="Photo Test"
-          component={PhotoUploadPage}
-        />
         <Stack.Screen
           name="ExplorationMap"
           component={ExplorationMap}
@@ -24,6 +20,10 @@ export default function App() {
         <Stack.Screen 
           name="CampsitePage" 
           component={CampsitePage} />
+        <Stack.Screen
+          name="Photo Test"
+          component={PhotoUploadPage}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
