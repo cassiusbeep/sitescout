@@ -49,3 +49,14 @@ export async function getPhotoFromRef(ref) {
 		return res;
 	});
 }
+
+export async function getCollageFromRef(ref) {
+	const uri = ENDPOINT + `collage?ref=${ref}`
+	return fetch(uri, {
+		method: "GET"
+	}).then(response => response.json())
+	.then((res) => {
+		console.log(res);
+		return res;
+	});
+}

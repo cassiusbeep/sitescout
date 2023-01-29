@@ -2,13 +2,14 @@ import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image, Dimensions, Pressable, ScrollView} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
-import getUserLocation from "../../functions/locationFunctions";
+import getUserLocation, { getAllPhotos } from "../../functions/locationFunctions";
 import { useEffect, useState } from "react";
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import smokeMessages from "../../functions/smokeFunction.mjs";
 import PhotoUploadPage from './PhotoUploadPage';
+import { getCollageFromRef } from "../../functions/photoFunctions";
 
 /*TODO :: take in data from server. 
           use collage image instead of placeholder-01.png. 
@@ -16,18 +17,18 @@ import PhotoUploadPage from './PhotoUploadPage';
            
 */
 
+const screenHeight = Dimensions.get('window').height;
+
 export default function CampsitePage({route, navigation}) {
   const { locationValue } = route.params;
 
-  const screenHeight = Dimensions.get('window').height;
-  const [listMessages, setListMessages] = useState([]);
+  const [collage, setCollage] = useState(null);
   const [smokeMessageResult, setSmokeMessageResult] = useState([]);
 
   useEffect(() => {
     (async () => {
       let msgs = await (async () => {
         let msgs = await getAllPhotos(locationValue._id);
-        setListMessages(msgs);
         return msgs;
       })();
       if (msgs.length > 0) {
@@ -38,15 +39,20 @@ export default function CampsitePage({route, navigation}) {
         setSmokeMessageResult(smokeMsgs);
       }
     })();
+
+    (async () => {
+      let collageTemp = await getCollageFromRef(locationValue.collageRef);
+      setCollage(collageTemp);
+    })()
   }, []);
 
   return (
   <View style={styles.container}>
-
+      {collage?
       <ScrollView horizontal={true}>
-        <Image source={require('../../assets/placeholder-01.png')} style={{height:screenHeight * 0.45}}/>
-      </ScrollView>
-
+      <Image source={{uri: collage.public_url}} style={{height:screenHeight * 0.45, width: collage.width? collage.width: screenHeight * .45}}/>
+    </ScrollView>:null
+      }
       <ScrollView>
         <View style={styles.textAligned}>
           <Text>{smokeMessageResult}</Text>

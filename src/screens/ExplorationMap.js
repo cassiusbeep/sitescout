@@ -43,8 +43,8 @@ export default function ExplorationMap({navigation}) {
     console.log(lat1);
     console.log(lon2);
     console.log(lat2);
-    lat_cond = (lat2 - 10 * meterToCoord <= lat1) && (lat2 + 10 * meterToCoord >= lat1)
-    lon_cond = (lon2 - 10 * meterToCoord <= lon1) && (lon2 + 10 * meterToCoord >= lon1)
+    lat_cond = (lat2 - 50 * meterToCoord <= lat1) && (lat2 + 50 * meterToCoord >= lat1)
+    lon_cond = (lon2 - 50 * meterToCoord <= lon1) && (lon2 + 50 * meterToCoord >= lon1)
     return lat_cond && lon_cond
   }
 
@@ -88,7 +88,7 @@ export default function ExplorationMap({navigation}) {
 {locImages.map((val, index) => {
         return (
           <Modal
-          key={{index}}
+          key={`${val._id}-${index}`}
           style={{position: "absolute", bottom: "0%", left: "0%"}}
         animationType="fade"
         transparent={true}
@@ -133,8 +133,8 @@ export default function ExplorationMap({navigation}) {
             initialRegion={{
               latitude: 41.826190,
               longitude: -71.402475,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
+              latitudeDelta: 0.0072,
+              longitudeDelta: 0.0051,
               }}
           >
       
@@ -144,7 +144,7 @@ export default function ExplorationMap({navigation}) {
                       latitude: parseFloat(val.lat),
                       longitude: parseFloat(val.lon)
                       }}
-                      key={index}
+                      key={`${val._id}-${index}`}
                       image={getIconByNum(val.num_images)}
                       onPress={async () => {
                         await checkIfInRange(val);
@@ -203,8 +203,8 @@ const styles = StyleSheet.create({
 },
 modalView: {
   overflow: "hidden",
-  width: "50%",
-  height: "27%",
+  width: "70%",
+  height: "50%",
   backgroundColor: '#3A1600',
   borderRadius: 20,
   padding: 35,
