@@ -39,7 +39,7 @@ export default function CampsitePage({route, navigation}) {
       <View style={styles.bottom}>
         <Image source={require('../../assets/campsite-ani-2.gif')} style={styles.bottom}/>
         <Pressable
-        onPress={() => navigation.navigate('Photo Test')}>
+        onPress={() => navigation.navigate('Photo Test', {uploadState: locationValue._id})}>
         <Image source={require('../../assets/button-contribute-01.png')} style={styles.floatingContribute}/>
       </Pressable>
       </View>
