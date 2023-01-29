@@ -1,5 +1,5 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import {StyleSheet, Button, View, SafeAreaView, Text, Alert} from 'react-native';
+import {StyleSheet, Button, View, SafeAreaView, Text, Alert, Image} from 'react-native';
 import MapView, {Marker} from "react-native-maps";
 import sample_icon from "../../assets/site-icon-2-01.png";
 import getUserLocation from "../../functions/locationFunctions";
@@ -8,7 +8,9 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-export default function CampsitePage({navigation}) {
+export default function CampsitePage({route, navigation}) {
+  const { locationValue } = route.params;
+
   return (
   <View style={styles.container}>
     <Button
@@ -19,7 +21,7 @@ export default function CampsitePage({navigation}) {
     />
     <Image source={require('../../assets/placeholder-01.png')} />
     <Text style={styles.textBox}>
-      Hello world!
+      {locationValue.latest_image}
     </Text>
     </View>
   );
@@ -31,12 +33,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#3a1600',
     color: '#ffffff'
   },
-  container: {
-    flex: 1,
-    backgroundColor: '#3a1600',
-    color: '#ffffff'
-  },
   textBox: {
+    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'flex-start',
     color: '#3a1600',
